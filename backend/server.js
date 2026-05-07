@@ -20,7 +20,12 @@ import { migrateLegacySchemas } from './db/migrateLegacySchemas.js';
 const app = express();
 const PORT = process.env.PORT || 5000;
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
-const CORS_ALLOWLIST = ['http://localhost:5173', CLIENT_URL];
+
+const CORS_ALLOWLIST = [
+  'http://localhost:5173',
+  'https://gps-renewables.vercel.app',
+  CLIENT_URL,
+];
 
 app.use(
   cors({
