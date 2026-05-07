@@ -57,10 +57,16 @@ app.use((err, _req, res, _next) => {
 });
 
 async function main() {
+  
   const uri = process.env.MONGODB_URI;
-  if (!uri) {
-    console.error('Missing MONGODB_URI');
-    process.exit(1);
+
+if (uri) {
+  await mongoose.connect(uri);
+  console.log('MongoDB connected');
+  await migrateLegacySchemas();
+} else {
+  console.log('MongoDB not configured. Running without database.');
+}
   }
   await mongoose.connect(uri);
   console.log('MongoDB connected');
