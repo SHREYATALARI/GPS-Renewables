@@ -76,7 +76,7 @@ if (uri) {
   app.listen(PORT, () => {
     console.log(`API listening on http://localhost:${PORT}`);
   });
-}
+
 
 main().catch((e) => {
   console.error(e);
