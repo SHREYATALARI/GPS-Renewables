@@ -1,0 +1,11 @@
+# Query: /auth/signup
+# ContextLines: 1
+
+2 results - 1 file
+
+frontend\src\api\client.js:
+  57    register: async (body) => {
+  58:     const url = `${AUTH_API_BASE}/api/auth/signup`;
+  59      try {
+  60:       const data = await api('/api/auth/signup', { method: 'POST', body: JSON.stringify(body) });
+  61        return data;

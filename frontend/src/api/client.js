@@ -3,14 +3,16 @@
  * Authentication is stateless: Bearer token from localStorage per browser profile (no shared server session).
  * FUTURE: Axios interceptors, retries, typed OpenAPI client generation.
  */
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-const AUTH_API_BASE = import.meta.env.VITE_API_URL || API;
+const API = import.meta.env.VITE_API_URL;
 
 function getToken() {
   return localStorage.getItem('gps_token');
 }
 
 export async function api(path, options = {}) {
+  if (!API) {
+    throw new Error('Missing VITE_API_URL. Please configure frontend/.env');
+  }
   const headers = {
     'Content-Type': 'application/json',
     ...(options.headers || {}),
@@ -45,7 +47,7 @@ export async function api(path, options = {}) {
 
 export const authApi = {
   login: async (body) => {
-    const url = `${AUTH_API_BASE}/auth/login`;
+    const url = `${API}/auth/login`;
     try {
       const data = await api('/auth/login', { method: 'POST', body: JSON.stringify(body) });
       return data;
@@ -55,7 +57,7 @@ export const authApi = {
     }
   },
   register: async (body) => {
-    const url = `${AUTH_API_BASE}/auth/signup`;
+    const url = `${API}/auth/signup`;
     try {
       const data = await api('/auth/signup', { method: 'POST', body: JSON.stringify(body) });
       return data;
