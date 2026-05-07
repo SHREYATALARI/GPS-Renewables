@@ -27,16 +27,14 @@ const CORS_ALLOWLIST = [
   CLIENT_URL,
 ];
 
-app.use(
-  cors({
-    origin(origin, cb) {
-      /** Allow same-origin server-to-server requests with no Origin header */
-      if (!origin) return cb(null, true);
-      return cb(null, CORS_ALLOWLIST.includes(origin));
-    },
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://gps-renewables.vercel.app",
+    "https://gps-renewables-git-main-shreyatalaris-projects.vercel.app"
+  ],
+  credentials: true
+}))
 app.use(express.json({ limit: '2mb' }));
 
 app.get('/api/health', (_req, res) => {
